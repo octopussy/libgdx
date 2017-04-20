@@ -100,7 +100,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide(JNIEnv* e
 
 }
 
-JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsCount(JNIEnv* env, jclass clazz) {
+JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawListCount(JNIEnv* env, jclass clazz) {
 
 
 //@line:75
@@ -111,13 +111,41 @@ JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsCount(JNIEnv
 
 }
 
-JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsBufferSize(JNIEnv* env, jclass clazz, jint cmdListIndex) {
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawList(JNIEnv* env, jclass clazz, jint index) {
 
 
 //@line:80
 
 	 	ImDrawData* data = ImGui::GetDrawData();
-	 	return data->CmdLists[cmdListIndex]->CmdBuffer.Size;
+	 	ImDrawList* list = data->CmdLists[index];
+
+		jclass cmdCls = env->FindClass("com/badlogic/gdx/imgui/ImGuiDrawCmd");
+	 	jclass listCls = env->FindClass("com/badlogic/gdx/imgui/ImGuiDrawList");
+
+	 	assert(cmdCls != NULL);
+		assert(listCls != NULL);
+
+		jmethodID cmdCtor = env->GetMethodID(cmdCls, "<init>", "(I)V");
+		jmethodID listCtor = env->GetMethodID(listCls, "<init>", "([Lcom/badlogic/gdx/imgui/ImGuiDrawCmd;IIII)V");
+
+		assert(cmdCtor != NULL);
+		assert(listCtor != NULL);
+
+		jobjectArray array = env->NewObjectArray(list->CmdBuffer.Size, cmdCls, NULL);
+		jint vtxCount = list->VtxBuffer.Size;
+		jint vtxElementSize = sizeof(ImDrawVert);
+		jint idxCount = list->IdxBuffer.Size;
+		jint idxElementSize = sizeof(ImDrawIdx);
+
+		for (int i = 0; i < list->CmdBuffer.Size; ++i) {
+			const ImDrawCmd* cmd = &list->CmdBuffer[i];
+			jobject o = env->NewObject(cmdCls, cmdCtor, cmd->ElemCount);
+
+			env->SetObjectArrayElement(array, i, o);
+		}
+
+		jobject result = env->NewObject(listCls, listCtor, array, vtxCount, vtxElementSize, idxCount, idxElementSize);
+	 	return result;
 	
 
 }
@@ -126,14 +154,14 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getVertBuffer(JNIEnv* e
 	float* out = (float*)env->GetPrimitiveArrayCritical(obj_out, 0);
 
 
-//@line:85
+//@line:113
 
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
 		const ImDrawVert* vtx_buffer = cmd_list->VtxBuffer.Data;
 
 		//float* pDst = (float *)env->GetDirectBufferAddress(out);
-		memcpy(out, vtx_buffer, data->TotalVtxCount);
+		memcpy(out, vtx_buffer, cmd_list->VtxBuffer.Size * sizeof(ImDrawVert));
 	
 	env->ReleasePrimitiveArrayCritical(obj_out, out, 0);
 
@@ -143,14 +171,14 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer(JNIEnv* en
 	short* out = (short*)env->GetPrimitiveArrayCritical(obj_out, 0);
 
 
-//@line:94
+//@line:122
 
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
 		const ImDrawIdx* idx_buffer = cmd_list->IdxBuffer.Data;
 
 		//float* pDst = (float *)env->GetDirectBufferAddress(out);
-		memcpy(out, idx_buffer, data->TotalVtxCount);
+		memcpy(out, idx_buffer, cmd_list->IdxBuffer.Size * sizeof(ImDrawIdx));
 	
 	env->ReleasePrimitiveArrayCritical(obj_out, out, 0);
 
@@ -159,7 +187,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer(JNIEnv* en
 JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTotalVtxCount(JNIEnv* env, jclass clazz) {
 
 
-//@line:103
+//@line:131
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->TotalVtxCount;

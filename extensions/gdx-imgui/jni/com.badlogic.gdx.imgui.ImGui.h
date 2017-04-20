@@ -73,18 +73,18 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
- * Method:    getCmdListsCount
+ * Method:    getDrawListCount
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsCount
+JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawListCount
   (JNIEnv *, jclass);
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
- * Method:    getCmdListsBufferSize
- * Signature: (I)I
+ * Method:    getDrawList
+ * Signature: (I)Lcom/badlogic/gdx/imgui/ImGuiDrawList;
  */
-JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsBufferSize
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawList
   (JNIEnv *, jclass, jint);
 
 /*

@@ -72,14 +72,42 @@ public class ImGui {
 	 	ImGui::ShowUserGuide();
 	*/
 
-	public static native int getCmdListsCount(); /*
+	public static native int getDrawListCount(); /*
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->CmdListsCount;
 	*/
 
-	public static native int getCmdListsBufferSize(int cmdListIndex); /*
+	public static native ImGuiDrawList getDrawList(int index); /*
 	 	ImDrawData* data = ImGui::GetDrawData();
-	 	return data->CmdLists[cmdListIndex]->CmdBuffer.Size;
+	 	ImDrawList* list = data->CmdLists[index];
+
+		jclass cmdCls = env->FindClass("com/badlogic/gdx/imgui/ImGuiDrawCmd");
+	 	jclass listCls = env->FindClass("com/badlogic/gdx/imgui/ImGuiDrawList");
+
+	 	assert(cmdCls != NULL);
+		assert(listCls != NULL);
+
+		jmethodID cmdCtor = env->GetMethodID(cmdCls, "<init>", "(I)V");
+		jmethodID listCtor = env->GetMethodID(listCls, "<init>", "([Lcom/badlogic/gdx/imgui/ImGuiDrawCmd;IIII)V");
+
+		assert(cmdCtor != NULL);
+		assert(listCtor != NULL);
+
+		jobjectArray array = env->NewObjectArray(list->CmdBuffer.Size, cmdCls, NULL);
+		jint vtxCount = list->VtxBuffer.Size;
+		jint vtxElementSize = sizeof(ImDrawVert);
+		jint idxCount = list->IdxBuffer.Size;
+		jint idxElementSize = sizeof(ImDrawIdx);
+
+		for (int i = 0; i < list->CmdBuffer.Size; ++i) {
+			const ImDrawCmd* cmd = &list->CmdBuffer[i];
+			jobject o = env->NewObject(cmdCls, cmdCtor, cmd->ElemCount);
+
+			env->SetObjectArrayElement(array, i, o);
+		}
+
+		jobject result = env->NewObject(listCls, listCtor, array, vtxCount, vtxElementSize, idxCount, idxElementSize);
+	 	return result;
 	*/
 
 	public static native void getVertBuffer(float[] out, int cmdListIndex); /*
@@ -88,7 +116,7 @@ public class ImGui {
 		const ImDrawVert* vtx_buffer = cmd_list->VtxBuffer.Data;
 
 		//float* pDst = (float *)env->GetDirectBufferAddress(out);
-		memcpy(out, vtx_buffer, data->TotalVtxCount);
+		memcpy(out, vtx_buffer, cmd_list->VtxBuffer.Size * sizeof(ImDrawVert));
 	*/
 
 	public static native void getIndBuffer(short[] out, int cmdListIndex); /*
@@ -97,7 +125,7 @@ public class ImGui {
 		const ImDrawIdx* idx_buffer = cmd_list->IdxBuffer.Data;
 
 		//float* pDst = (float *)env->GetDirectBufferAddress(out);
-		memcpy(out, idx_buffer, data->TotalVtxCount);
+		memcpy(out, idx_buffer, cmd_list->IdxBuffer.Size * sizeof(ImDrawIdx));
 	*/
 
 	public static native int getTotalVtxCount(); /*

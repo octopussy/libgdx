@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.imgui.ImGui;
+import com.badlogic.gdx.imgui.ImGuiDrawCmd;
+import com.badlogic.gdx.imgui.ImGuiDrawList;
 import com.badlogic.gdx.imgui.ImGuiTexData;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.BufferUtils;
@@ -37,7 +39,7 @@ public class Launcher implements ApplicationListener {
 
 		//Lwjgl3ApplicationConfiguration conf = new Lwjgl3ApplicationConfiguration();
 		//conf.setWindowedMode(600, 500);
-		LwjglApplication app = new LwjglApplication(new Launcher(), "123", 600, 500);
+		LwjglApplication app = new LwjglApplication(new Launcher(), "123", 800, 600);
 	}
 
 	@Override
@@ -139,23 +141,31 @@ public class Launcher implements ApplicationListener {
 		Gdx.gl20.glDisable(GL20.GL_CULL_FACE);
 		Gdx.gl20.glDisable(GL20.GL_DEPTH_TEST);
 		//Gdx.gl20.glEnable(GL20.GL_SCISSOR_TEST);
-	//	Gdx.gl20.glEnableClientState(GL_VERTEX_ARRAY);
-//		Gdx.gl20.glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-//		Gdx.gl20.glEnableClientState(GL_COLOR_ARRAY);
 		Gdx.gl20.glEnable(GL20.GL_TEXTURE_2D);
-		//glUseProgram(0); // You may want this if using this code in an OpenGL 3+ context
-
-		// Setup viewport, orthographic projection matrix
 		Gdx.gl20.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-		Gdx.app.log("123", ImGui.getCmdListsCount() + " " + ImGui.getTotalVtxCount());
-		for (int cmd_list = 0; cmd_list < ImGui.getCmdListsCount(); ++cmd_list) {
+		shader.begin();
+
+		for (int cmd_list = 0; cmd_list < ImGui.getDrawListCount(); ++cmd_list) {
+
+			ImGuiDrawList drawList = ImGui.getDrawList(cmd_list);
+
+			int vtxDataSize = drawList.vtxCount * drawList.vtxElementSize;
+			int idxDataSize = drawList.idxCount * drawList.idxElmentSize;
+			if (vertices.length < vtxDataSize) {
+				vertices = new float[vtxDataSize];
+			}
+
+			if (indices.length < idxDataSize) {
+				indices = new short[idxDataSize];
+			}
 
 			ImGui.getVertBuffer(vertices, cmd_list);
 			ImGui.getIndBuffer(indices, cmd_list);
+
 			mesh.setVertices(vertices);
 			mesh.setIndices(indices);
-			shader.begin();
+
 
 			Matrix4 projectionMatrix = new Matrix4();
 			projectionMatrix.setToOrtho(0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, -1, 1);
@@ -163,11 +173,13 @@ public class Launcher implements ApplicationListener {
 			shader.setUniformi("u_texture", 0);
 			fontTexture.bind();
 
-			mesh.render(shader, GL20.GL_TRIANGLES);
+			int offset = 0;
+			for (int cmd_i = 0; cmd_i < drawList.cmdBuffer.length; ++cmd_i) {
+				ImGuiDrawCmd cmd = drawList.cmdBuffer[cmd_i];
 
-			shader.end();
+				mesh.render(shader, GL20.GL_TRIANGLES, offset, cmd.elemCount);
+				offset += cmd.elemCount;
 
-			for (int cmd_i = 0; cmd_i < ImGui.getCmdListsBufferSize(cmd_list); ++cmd_i) {
 				/* const ImDrawCmd* pcmd = &cmd_list->CmdBuffer[cmd_i];
 				if (pcmd->UserCallback)
 				{
@@ -182,29 +194,9 @@ public class Launcher implements ApplicationListener {
 				idx_buffer += pcmd->ElemCount;*/
 
 			}
-/*const ImDrawList* cmd_list = draw_data->CmdLists[n];
-		  const ImDrawVert* vtx_buffer = cmd_list->VtxBuffer.Data;
-        const ImDrawIdx* idx_buffer = cmd_list->IdxBuffer.Data;
-			glVertexPointer(2, GL_FLOAT, sizeof(ImDrawVert), (const GLvoid*)((const char*)vtx_buffer + OFFSETOF(ImDrawVert, pos)));
-			glTexCoordPointer(2, GL_FLOAT, sizeof(ImDrawVert), (const GLvoid*)((const char*)vtx_buffer + OFFSETOF(ImDrawVert, uv)));
-			glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(ImDrawVert), (const GLvoid*)((const char*)vtx_buffer + OFFSETOF(ImDrawVert, col)));
-
-			for (int cmd_i = 0; cmd_i < cmd_list->CmdBuffer.Size; cmd_i++)
-			{
-            const ImDrawCmd* pcmd = &cmd_list->CmdBuffer[cmd_i];
-				if (pcmd->UserCallback)
-				{
-					pcmd->UserCallback(cmd_list, pcmd);
-				}
-				else
-				{
-					glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId);
-					glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
-					glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer);
-				}
-				idx_buffer += pcmd->ElemCount;
-			}*/
 		}
+
+		shader.end();
 
 		// Restore modified state
 		/*Gdx.gl20.glDisableClientState(GL_COLOR_ARRAY);
