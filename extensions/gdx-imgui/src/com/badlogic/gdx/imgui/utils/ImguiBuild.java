@@ -18,8 +18,8 @@ public class ImguiBuild {
 		BuildTarget mac32 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
 		BuildTarget mac64 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, true);
 		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
-		new NativeCodeGenerator().generate("src", "bin" + File.pathSeparator + "../../../gdx/bin", "jni");
+		new NativeCodeGenerator().generate("src", "target/classes", "jni");
 		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui"),
-			win32, win64, lin32, lin64, mac32, mac64, android, ios);
+			/*win32, win64, lin32, lin64,*/ mac32, mac64/*, android, ios*/);
 	}
 }

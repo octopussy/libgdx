@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.badlogicgames.gdx</groupId>
-		<artifactId>gdx-box2d-parent</artifactId>
+		<artifactId>gdx-parent</artifactId>
 		<version>1.9.7-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>gdx-imgui</artifactId>
