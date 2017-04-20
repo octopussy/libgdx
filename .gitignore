@@ -59,6 +59,7 @@ libgdx-*.zip.MD5
 /extensions/gdx-audio/libs/
 /extensions/gdx-box2d/gdx-box2d/libs/
 /extensions/gdx-bullet/libs/
+/extensions/gdx-imgui/libs/
 /extensions/gdx-controllers/gdx-controllers-desktop/libs/
 /extensions/gdx-freetype/libs/
 /extensions/gdx-image/libs/
