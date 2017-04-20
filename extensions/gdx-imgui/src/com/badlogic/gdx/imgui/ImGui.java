@@ -1,5 +1,7 @@
 package com.badlogic.gdx.imgui;
 
+import java.nio.FloatBuffer;
+
 /**
  * @author mcpussy
  * @date 20/04/2017
@@ -59,7 +61,7 @@ public class ImGui {
 	*/
 
 	public static native void render(); /*
-	 	ImGui::NewFrame();
+	 	ImGui::Render();
 	*/
 
 	public static native void shutdown(); /*
@@ -68,5 +70,38 @@ public class ImGui {
 
 	public static native void showUserGuide(); /*
 	 	ImGui::ShowUserGuide();
+	*/
+
+	public static native int getCmdListsCount(); /*
+	 	ImDrawData* data = ImGui::GetDrawData();
+	 	return data->CmdListsCount;
+	*/
+
+	public static native int getCmdListsBufferSize(int cmdListIndex); /*
+	 	ImDrawData* data = ImGui::GetDrawData();
+	 	return data->CmdLists[cmdListIndex]->CmdBuffer.Size;
+	*/
+
+	public static native void getVertBuffer(float[] out, int cmdListIndex); /*
+		ImDrawData* data = ImGui::GetDrawData();
+		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
+		const ImDrawVert* vtx_buffer = cmd_list->VtxBuffer.Data;
+
+		//float* pDst = (float *)env->GetDirectBufferAddress(out);
+		memcpy(out, vtx_buffer, data->TotalVtxCount);
+	*/
+
+	public static native void getIndBuffer(short[] out, int cmdListIndex); /*
+		ImDrawData* data = ImGui::GetDrawData();
+		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
+		const ImDrawIdx* idx_buffer = cmd_list->IdxBuffer.Data;
+
+		//float* pDst = (float *)env->GetDirectBufferAddress(out);
+		memcpy(out, idx_buffer, data->TotalVtxCount);
+	*/
+
+	public static native int getTotalVtxCount(); /*
+	 	ImDrawData* data = ImGui::GetDrawData();
+	 	return data->TotalVtxCount;
 	*/
 }

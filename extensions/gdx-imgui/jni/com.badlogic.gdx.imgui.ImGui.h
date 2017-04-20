@@ -71,6 +71,46 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getCmdListsCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsCount
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getCmdListsBufferSize
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getCmdListsBufferSize
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getVertBuffer
+ * Signature: ([FI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getVertBuffer
+  (JNIEnv *, jclass, jfloatArray, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getIndBuffer
+ * Signature: ([SI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer
+  (JNIEnv *, jclass, jshortArray, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getTotalVtxCount
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTotalVtxCount
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif
