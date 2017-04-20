@@ -19,10 +19,24 @@ public class ImguiBuild {
 		String[] headers = {"imgui/"};
 
 		BuildTarget win32 = BuildTarget.newDefaultTarget(TargetOs.Windows, false);
+		win32.cIncludes = win32.cppIncludes = cppIncludes;
+		win32.headerDirs = headers;
+
 		BuildTarget win64 = BuildTarget.newDefaultTarget(TargetOs.Windows, true);
+		win64.cIncludes = win64.cppIncludes = cppIncludes;
+		win64.headerDirs = headers;
+
 		BuildTarget lin32 = BuildTarget.newDefaultTarget(TargetOs.Linux, false);
+		lin32.cIncludes = lin32.cppIncludes = cppIncludes;
+		lin32.headerDirs = headers;
+
 		BuildTarget lin64 = BuildTarget.newDefaultTarget(TargetOs.Linux, true);
+		lin64.cIncludes = lin64.cppIncludes = cppIncludes;
+		lin64.headerDirs = headers;
+
 		BuildTarget android = BuildTarget.newDefaultTarget(TargetOs.Android, false);
+		android.cIncludes = android.cppIncludes = cppIncludes;
+		android.headerDirs = headers;
 
 		BuildTarget mac32 = BuildTarget.newDefaultTarget(TargetOs.MacOsX, false);
 		mac32.cIncludes = mac32.cppIncludes = cppIncludes;
@@ -35,6 +49,6 @@ public class ImguiBuild {
 		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
 		new NativeCodeGenerator().generate("src", "target/classes", "jni");
 		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui"),
-			/*win32, win64, lin32, lin64,*/ mac32, mac64/*, android, ios*/);
+			win32, win64, lin32, lin64, mac32, mac64, android, ios);
 	}
 }
