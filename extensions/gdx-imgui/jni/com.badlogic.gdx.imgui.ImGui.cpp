@@ -169,10 +169,40 @@ JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_isMouseHoveringAnyW
 
 }
 
-JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseWheel(JNIEnv* env, jclass clazz, jfloat value) {
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_wantCaptureMouse(JNIEnv* env, jclass clazz) {
 
 
 //@line:105
+
+	 	return ImGui::GetIO().WantCaptureMouse;
+	
+
+}
+
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_wantCaptureKeyboard(JNIEnv* env, jclass clazz) {
+
+
+//@line:109
+
+	 	return ImGui::GetIO().WantCaptureKeyboard;
+	
+
+}
+
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_wantTextInput(JNIEnv* env, jclass clazz) {
+
+
+//@line:113
+
+	 	return ImGui::GetIO().WantTextInput;
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseWheel(JNIEnv* env, jclass clazz, jfloat value) {
+
+
+//@line:117
 
 		ImGuiIO& io = ImGui::GetIO();
 	 	io.MouseWheel = value;
@@ -183,7 +213,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseWheel(JNIEnv* e
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_newFrame(JNIEnv* env, jclass clazz) {
 
 
-//@line:110
+//@line:122
 
 	 	ImGui::NewFrame();
 	
@@ -193,7 +223,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_newFrame(JNIEnv* env, j
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_render(JNIEnv* env, jclass clazz) {
 
 
-//@line:114
+//@line:126
 
 	 	ImGui::Render();
 	
@@ -203,7 +233,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_render(JNIEnv* env, jcl
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown(JNIEnv* env, jclass clazz) {
 
 
-//@line:118
+//@line:130
 
 	 	ImGui::Shutdown();
 	
@@ -213,7 +243,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown(JNIEnv* env, j
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide(JNIEnv* env, jclass clazz) {
 
 
-//@line:122
+//@line:134
 
 	 	ImGui::ShowUserGuide();
 	
@@ -223,7 +253,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide(JNIEnv* e
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showTestWindow(JNIEnv* env, jclass clazz) {
 
 
-//@line:126
+//@line:138
 
 	 	ImGui::ShowTestWindow();
 	
@@ -233,7 +263,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showTestWindow(JNIEnv* 
 JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawListCount(JNIEnv* env, jclass clazz) {
 
 
-//@line:130
+//@line:142
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->CmdListsCount;
@@ -244,7 +274,7 @@ JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawListCount(JNIEnv
 JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawList(JNIEnv* env, jclass clazz, jint index) {
 
 
-//@line:135
+//@line:147
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	ImDrawList* list = data->CmdLists[index];
@@ -285,7 +315,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getVertBuffer(JNIEnv* e
 	float* out = (float*)env->GetPrimitiveArrayCritical(obj_out, 0);
 
 
-//@line:169
+//@line:181
 
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
@@ -298,11 +328,11 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getVertBuffer(JNIEnv* e
 
 }
 
-JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer(JNIEnv* env, jclass clazz, jshortArray obj_out, jint cmdListIndex) {
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIdxBuffer(JNIEnv* env, jclass clazz, jshortArray obj_out, jint cmdListIndex) {
 	short* out = (short*)env->GetPrimitiveArrayCritical(obj_out, 0);
 
 
-//@line:178
+//@line:190
 
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
@@ -318,7 +348,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer(JNIEnv* en
 JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTotalVtxCount(JNIEnv* env, jclass clazz) {
 
 
-//@line:187
+//@line:199
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->TotalVtxCount;

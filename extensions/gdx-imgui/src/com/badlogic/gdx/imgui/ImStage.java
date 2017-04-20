@@ -138,7 +138,7 @@ public class ImStage extends InputAdapter implements Disposable {
 			}
 
 			ImGui.getVertBuffer(vertices, cmd_list);
-			ImGui.getIndBuffer(indices, cmd_list);
+			ImGui.getIdxBuffer(indices, cmd_list);
 
 			mesh.setVertices(vertices);
 			mesh.setIndices(indices);
@@ -191,39 +191,47 @@ public class ImStage extends InputAdapter implements Disposable {
 
 	@Override
 	public boolean keyTyped(char character) {
-		ImGui.addInputCharacter(character);
+		if (ImGui.wantTextInput()) {
+			ImGui.addInputCharacter(character);
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
-		ImGui.setKeyDown(keycode, true);
-		updateKeyModifiers();
-		return false;
+		return setKeyDown(keycode, true);
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		ImGui.setKeyDown(keycode, false);
-		updateKeyModifiers();
-		return false;
+		return setKeyDown(keycode, false);
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
 		ImGui.setMousePos(screenX, screenY);
-		return ImGui.isMouseHoveringAnyWindow();
+		return ImGui.wantCaptureMouse();
 	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return ImGui.isMouseHoveringAnyWindow();
+		return ImGui.wantCaptureMouse();
 	}
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		ImGui.setMousePos(screenX, screenY);
-		return ImGui.isMouseHoveringAnyWindow();
+		return ImGui.wantCaptureMouse();
+	}
+
+	private boolean setKeyDown(int keycode, boolean pressed) {
+		if (ImGui.wantCaptureKeyboard()) {
+			ImGui.setKeyDown(keycode, pressed);
+			updateKeyModifiers();
+			return true;
+		}
+		return false;
 	}
 
 	private void updateKeyModifiers() {

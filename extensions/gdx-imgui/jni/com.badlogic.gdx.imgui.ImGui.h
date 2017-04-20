@@ -121,6 +121,30 @@ JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_isMouseHoveringAnyW
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    wantCaptureMouse
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_wantCaptureMouse
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    wantCaptureKeyboard
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_wantCaptureKeyboard
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    wantTextInput
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_wantTextInput
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
  * Method:    setMouseWheel
  * Signature: (F)V
  */
@@ -193,10 +217,10 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getVertBuffer
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
- * Method:    getIndBuffer
+ * Method:    getIdxBuffer
  * Signature: ([SI)V
  */
-JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIdxBuffer
   (JNIEnv *, jclass, jshortArray, jint);
 
 /*

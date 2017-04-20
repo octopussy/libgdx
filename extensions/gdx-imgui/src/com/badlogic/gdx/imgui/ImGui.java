@@ -102,6 +102,18 @@ public class ImGui {
 		return ImGui::IsMouseHoveringAnyWindow();
 	*/
 
+	public static native boolean wantCaptureMouse(); /*
+	 	return ImGui::GetIO().WantCaptureMouse;
+	*/
+
+	public static native boolean wantCaptureKeyboard();/*
+	 	return ImGui::GetIO().WantCaptureKeyboard;
+	*/
+
+	public static native boolean wantTextInput();/*
+	 	return ImGui::GetIO().WantTextInput;
+	*/
+
 	public static native void setMouseWheel(float value); /*
 		ImGuiIO& io = ImGui::GetIO();
 	 	io.MouseWheel = value;
@@ -175,7 +187,7 @@ public class ImGui {
 		memcpy(out, vtx_buffer, cmd_list->VtxBuffer.Size * sizeof(ImDrawVert));
 	*/
 
-	public static native void getIndBuffer(short[] out, int cmdListIndex); /*
+	public static native void getIdxBuffer(short[] out, int cmdListIndex); /*
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
 		const ImDrawIdx* idx_buffer = cmd_list->IdxBuffer.Data;
