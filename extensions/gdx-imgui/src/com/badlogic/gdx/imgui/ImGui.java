@@ -1,10 +1,7 @@
 package com.badlogic.gdx.imgui;
 
-import java.nio.FloatBuffer;
-
 /**
  * @author mcpussy
- * @date 20/04/2017
  */
 public class ImGui {
 
@@ -41,6 +38,11 @@ public class ImGui {
 	 	}
 	*/
 
+	public static native void setKeyMap(int key, int value); /*
+	 	ImGuiIO& io = ImGui::GetIO();
+		io.KeyMap[key] = value;
+	*/
+
 	public static native float getDeltaTime(); /*
 		ImGuiIO& io = ImGui::GetIO();
 		return io.DeltaTime;
@@ -54,6 +56,55 @@ public class ImGui {
 	public static native void setDeltaTime(float value); /*
 		ImGuiIO& io = ImGui::GetIO();
 	 	io.DeltaTime = value > 0.0 ? value : (float)(1.0f/60.0f);
+	*/
+
+	public static native void setMousePos(float x, float y); /*
+	 	ImGuiIO& io = ImGui::GetIO();
+	 	io.MousePos = ImVec2(x, y);
+	*/
+
+	public static native void setMouseDown(int index, boolean buttonPressed); /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseDown[index] = buttonPressed;
+	*/
+
+	public static native void setKeyDown(int keycode, boolean set); /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeysDown[keycode] = set;
+	*/
+
+	public static native void setKeyCtrl(boolean set); /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeyCtrl = set;
+	*/
+
+	public static native void setKeyShift(boolean set); /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeyShift = set;
+	*/
+
+	public static native void setKeyAlt(boolean set); /*
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeyAlt = set;
+	*/
+
+	public static native boolean isKeysDown(int keycode); /*
+		ImGuiIO& io = ImGui::GetIO();
+		return io.KeysDown[keycode];
+	*/
+
+	public static native void addInputCharacter(char character); /*
+	 	ImGuiIO& io = ImGui::GetIO();
+	 	io.AddInputCharacter(character);
+	*/
+
+	public static native boolean isMouseHoveringAnyWindow(); /*
+		return ImGui::IsMouseHoveringAnyWindow();
+	*/
+
+	public static native void setMouseWheel(float value); /*
+		ImGuiIO& io = ImGui::GetIO();
+	 	io.MouseWheel = value;
 	*/
 
 	public static native void newFrame(); /*
@@ -72,6 +123,10 @@ public class ImGui {
 	 	ImGui::ShowUserGuide();
 	*/
 
+	public static native void showTestWindow(); /*
+	 	ImGui::ShowTestWindow();
+	*/
+
 	public static native int getDrawListCount(); /*
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->CmdListsCount;
@@ -87,7 +142,7 @@ public class ImGui {
 	 	assert(cmdCls != NULL);
 		assert(listCls != NULL);
 
-		jmethodID cmdCtor = env->GetMethodID(cmdCls, "<init>", "(I)V");
+		jmethodID cmdCtor = env->GetMethodID(cmdCls, "<init>", "(IFFFF)V");
 		jmethodID listCtor = env->GetMethodID(listCls, "<init>", "([Lcom/badlogic/gdx/imgui/ImGuiDrawCmd;IIII)V");
 
 		assert(cmdCtor != NULL);
@@ -101,7 +156,8 @@ public class ImGui {
 
 		for (int i = 0; i < list->CmdBuffer.Size; ++i) {
 			const ImDrawCmd* cmd = &list->CmdBuffer[i];
-			jobject o = env->NewObject(cmdCls, cmdCtor, cmd->ElemCount);
+			jobject o = env->NewObject(cmdCls, cmdCtor, cmd->ElemCount, cmd->ClipRect.x,
+				cmd->ClipRect.y, cmd->ClipRect.z, cmd->ClipRect.w);
 
 			env->SetObjectArrayElement(array, i, o);
 		}

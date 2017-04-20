@@ -17,6 +17,14 @@ JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTexDataAsRGBA32
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setKeyMap
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyMap
+  (JNIEnv *, jclass, jint, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
  * Method:    getDeltaTime
  * Signature: ()F
  */
@@ -37,6 +45,86 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setDisplaySize
  * Signature: (F)V
  */
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setDeltaTime
+  (JNIEnv *, jclass, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setMousePos
+ * Signature: (FF)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMousePos
+  (JNIEnv *, jclass, jfloat, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setMouseDown
+ * Signature: (IZ)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseDown
+  (JNIEnv *, jclass, jint, jboolean);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setKeyDown
+ * Signature: (IZ)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyDown
+  (JNIEnv *, jclass, jint, jboolean);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setKeyCtrl
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyCtrl
+  (JNIEnv *, jclass, jboolean);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setKeyShift
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyShift
+  (JNIEnv *, jclass, jboolean);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setKeyAlt
+ * Signature: (Z)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyAlt
+  (JNIEnv *, jclass, jboolean);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    isKeysDown
+ * Signature: (I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_isKeysDown
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    addInputCharacter
+ * Signature: (C)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_addInputCharacter
+  (JNIEnv *, jclass, jchar);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    isMouseHoveringAnyWindow
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_isMouseHoveringAnyWindow
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setMouseWheel
+ * Signature: (F)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseWheel
   (JNIEnv *, jclass, jfloat);
 
 /*
@@ -69,6 +157,14 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    showTestWindow
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showTestWindow
   (JNIEnv *, jclass);
 
 /*

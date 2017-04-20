@@ -1,12 +1,12 @@
 #include <com.badlogic.gdx.imgui.ImGui.h>
 
-//@line:11
+//@line:8
 
 		#include <imgui.h>
 	 JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTexDataAsRGBA32(JNIEnv* env, jclass clazz) {
 
 
-//@line:21
+//@line:18
 
 		ImGuiIO& io = ImGui::GetIO();
 		unsigned char* pixels;
@@ -27,10 +27,21 @@
 
 }
 
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyMap(JNIEnv* env, jclass clazz, jint key, jint value) {
+
+
+//@line:41
+
+	 	ImGuiIO& io = ImGui::GetIO();
+		io.KeyMap[key] = value;
+	
+
+}
+
 JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDeltaTime(JNIEnv* env, jclass clazz) {
 
 
-//@line:44
+//@line:46
 
 		ImGuiIO& io = ImGui::GetIO();
 		return io.DeltaTime;
@@ -41,7 +52,7 @@ JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDeltaTime(JNIEnv* 
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setDisplaySize(JNIEnv* env, jclass clazz, jfloat width, jfloat height) {
 
 
-//@line:49
+//@line:51
 
 		ImGuiIO& io = ImGui::GetIO();
 	 	io.DisplaySize = ImVec2(width, height);
@@ -52,7 +63,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setDisplaySize(JNIEnv* 
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setDeltaTime(JNIEnv* env, jclass clazz, jfloat value) {
 
 
-//@line:54
+//@line:56
 
 		ImGuiIO& io = ImGui::GetIO();
 	 	io.DeltaTime = value > 0.0 ? value : (float)(1.0f/60.0f);
@@ -60,10 +71,119 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setDeltaTime(JNIEnv* en
 
 }
 
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMousePos(JNIEnv* env, jclass clazz, jfloat x, jfloat y) {
+
+
+//@line:61
+
+	 	ImGuiIO& io = ImGui::GetIO();
+	 	io.MousePos = ImVec2(x, y);
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseDown(JNIEnv* env, jclass clazz, jint index, jboolean buttonPressed) {
+
+
+//@line:66
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseDown[index] = buttonPressed;
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyDown(JNIEnv* env, jclass clazz, jint keycode, jboolean set) {
+
+
+//@line:71
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeysDown[keycode] = set;
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyCtrl(JNIEnv* env, jclass clazz, jboolean set) {
+
+
+//@line:76
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeyCtrl = set;
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyShift(JNIEnv* env, jclass clazz, jboolean set) {
+
+
+//@line:81
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeyShift = set;
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyAlt(JNIEnv* env, jclass clazz, jboolean set) {
+
+
+//@line:86
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.KeyAlt = set;
+	
+
+}
+
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_isKeysDown(JNIEnv* env, jclass clazz, jint keycode) {
+
+
+//@line:91
+
+		ImGuiIO& io = ImGui::GetIO();
+		return io.KeysDown[keycode];
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_addInputCharacter(JNIEnv* env, jclass clazz, jchar character) {
+
+
+//@line:96
+
+	 	ImGuiIO& io = ImGui::GetIO();
+	 	io.AddInputCharacter(character);
+	
+
+}
+
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_isMouseHoveringAnyWindow(JNIEnv* env, jclass clazz) {
+
+
+//@line:101
+
+		return ImGui::IsMouseHoveringAnyWindow();
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setMouseWheel(JNIEnv* env, jclass clazz, jfloat value) {
+
+
+//@line:105
+
+		ImGuiIO& io = ImGui::GetIO();
+	 	io.MouseWheel = value;
+	
+
+}
+
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_newFrame(JNIEnv* env, jclass clazz) {
 
 
-//@line:59
+//@line:110
 
 	 	ImGui::NewFrame();
 	
@@ -73,7 +193,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_newFrame(JNIEnv* env, j
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_render(JNIEnv* env, jclass clazz) {
 
 
-//@line:63
+//@line:114
 
 	 	ImGui::Render();
 	
@@ -83,7 +203,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_render(JNIEnv* env, jcl
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown(JNIEnv* env, jclass clazz) {
 
 
-//@line:67
+//@line:118
 
 	 	ImGui::Shutdown();
 	
@@ -93,9 +213,19 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown(JNIEnv* env, j
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide(JNIEnv* env, jclass clazz) {
 
 
-//@line:71
+//@line:122
 
 	 	ImGui::ShowUserGuide();
+	
+
+}
+
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showTestWindow(JNIEnv* env, jclass clazz) {
+
+
+//@line:126
+
+	 	ImGui::ShowTestWindow();
 	
 
 }
@@ -103,7 +233,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide(JNIEnv* e
 JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawListCount(JNIEnv* env, jclass clazz) {
 
 
-//@line:75
+//@line:130
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->CmdListsCount;
@@ -114,7 +244,7 @@ JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawListCount(JNIEnv
 JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawList(JNIEnv* env, jclass clazz, jint index) {
 
 
-//@line:80
+//@line:135
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	ImDrawList* list = data->CmdLists[index];
@@ -125,7 +255,7 @@ JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawList(JNIEnv* 
 	 	assert(cmdCls != NULL);
 		assert(listCls != NULL);
 
-		jmethodID cmdCtor = env->GetMethodID(cmdCls, "<init>", "(I)V");
+		jmethodID cmdCtor = env->GetMethodID(cmdCls, "<init>", "(IFFFF)V");
 		jmethodID listCtor = env->GetMethodID(listCls, "<init>", "([Lcom/badlogic/gdx/imgui/ImGuiDrawCmd;IIII)V");
 
 		assert(cmdCtor != NULL);
@@ -139,7 +269,8 @@ JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getDrawList(JNIEnv* 
 
 		for (int i = 0; i < list->CmdBuffer.Size; ++i) {
 			const ImDrawCmd* cmd = &list->CmdBuffer[i];
-			jobject o = env->NewObject(cmdCls, cmdCtor, cmd->ElemCount);
+			jobject o = env->NewObject(cmdCls, cmdCtor, cmd->ElemCount, cmd->ClipRect.x,
+				cmd->ClipRect.y, cmd->ClipRect.z, cmd->ClipRect.w);
 
 			env->SetObjectArrayElement(array, i, o);
 		}
@@ -154,7 +285,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getVertBuffer(JNIEnv* e
 	float* out = (float*)env->GetPrimitiveArrayCritical(obj_out, 0);
 
 
-//@line:113
+//@line:169
 
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
@@ -171,7 +302,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer(JNIEnv* en
 	short* out = (short*)env->GetPrimitiveArrayCritical(obj_out, 0);
 
 
-//@line:122
+//@line:178
 
 		ImDrawData* data = ImGui::GetDrawData();
 		const ImDrawList* cmd_list = data->CmdLists[cmdListIndex];
@@ -187,7 +318,7 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIndBuffer(JNIEnv* en
 JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTotalVtxCount(JNIEnv* env, jclass clazz) {
 
 
-//@line:131
+//@line:187
 
 	 	ImDrawData* data = ImGui::GetDrawData();
 	 	return data->TotalVtxCount;

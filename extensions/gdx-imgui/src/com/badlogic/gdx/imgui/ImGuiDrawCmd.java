@@ -20,8 +20,16 @@ struct ImDrawCmd
 
 public class ImGuiDrawCmd {
 	public final int elemCount;
+	public final float clipRectX;
+	public final float clipRectY;
+	public final float clipRectW;
+	public final float clipRectH;
 
-	public ImGuiDrawCmd(int elemCount) {
+	public ImGuiDrawCmd(int elemCount, float clipRectX, float clipRectY, float clipRectW, float clipRectH) {
 		this.elemCount = elemCount;
+		this.clipRectX = clipRectX;
+		this.clipRectY = clipRectY;
+		this.clipRectW = clipRectW;
+		this.clipRectH = clipRectH;
 	}
 }
