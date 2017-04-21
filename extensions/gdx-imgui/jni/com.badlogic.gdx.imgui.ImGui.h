@@ -177,22 +177,6 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_shutdown
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
- * Method:    showUserGuide
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_badlogic_gdx_imgui_ImGui
- * Method:    showTestWindow
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showTestWindow
-  (JNIEnv *, jclass);
-
-/*
- * Class:     com_badlogic_gdx_imgui_ImGui
  * Method:    getDrawListCount
  * Signature: ()I
  */
@@ -231,6 +215,193 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_getIdxBuffer
 JNIEXPORT jint JNICALL Java_com_badlogic_gdx_imgui_ImGui_getTotalVtxCount
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    showUserGuide
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showUserGuide
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    showTestWindow
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showTestWindow
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    showMetricsWindow
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_showMetricsWindow
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    end
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_end
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowPos
+ * Signature: (FFI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowPos
+  (JNIEnv *, jclass, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowPosCenter
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowPosCenter
+  (JNIEnv *, jclass, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowSize
+ * Signature: (FFI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowSize
+  (JNIEnv *, jclass, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowSizeConstraints
+ * Signature: (FFFF)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowSizeConstraints
+  (JNIEnv *, jclass, jfloat, jfloat, jfloat, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowContentSize
+ * Signature: (FF)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowContentSize
+  (JNIEnv *, jclass, jfloat, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowContentWidth
+ * Signature: (F)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowContentWidth
+  (JNIEnv *, jclass, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowCollapsed
+ * Signature: (ZI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowCollapsed
+  (JNIEnv *, jclass, jboolean, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setNextWindowFocus
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setNextWindowFocus
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowPos
+ * Signature: (FFI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowPos__FFI
+  (JNIEnv *, jclass, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowSize
+ * Signature: (FFI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowSize__FFI
+  (JNIEnv *, jclass, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowCollapsed
+ * Signature: (ZI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowCollapsed__ZI
+  (JNIEnv *, jclass, jboolean, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowFocus
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowFocus__
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowPos
+ * Signature: (Ljava/lang/String;FFI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowPos__Ljava_lang_String_2FFI
+  (JNIEnv *, jclass, jstring, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowSize
+ * Signature: (Ljava/lang/String;FFI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowSize__Ljava_lang_String_2FFI
+  (JNIEnv *, jclass, jstring, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowCollapsed
+ * Signature: (Ljava/lang/String;ZI)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowCollapsed__Ljava_lang_String_2ZI
+  (JNIEnv *, jclass, jstring, jboolean, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowFocus
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowFocus__Ljava_lang_String_2
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    beginJni
+ * Signature: (Ljava/lang/String;I)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_beginJni__Ljava_lang_String_2I
+  (JNIEnv *, jclass, jstring, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    beginJni
+ * Signature: (Ljava/lang/String;ZI)Lcom/badlogic/gdx/imgui/ImGui/BeginWindowJniResult;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_beginJni__Ljava_lang_String_2ZI
+  (JNIEnv *, jclass, jstring, jboolean, jint);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+/* Header for class com_badlogic_gdx_imgui_ImGui_BeginWindowJniResult */
+
+#ifndef _Included_com_badlogic_gdx_imgui_ImGui_BeginWindowJniResult
+#define _Included_com_badlogic_gdx_imgui_ImGui_BeginWindowJniResult
+#ifdef __cplusplus
+extern "C" {
+#endif
 #ifdef __cplusplus
 }
 #endif
