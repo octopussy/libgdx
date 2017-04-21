@@ -6,6 +6,8 @@ import com.badlogic.gdx.jnigen.BuildTarget;
 import com.badlogic.gdx.jnigen.BuildTarget.TargetOs;
 import com.badlogic.gdx.jnigen.NativeCodeGenerator;
 
+import java.io.File;
+
 public class ImguiBuild {
 	public static void main(String[] args) throws Exception {
 
@@ -47,7 +49,11 @@ public class ImguiBuild {
 		mac64.headerDirs = headers;
 
 		BuildTarget ios = BuildTarget.newDefaultTarget(TargetOs.IOS, false);
-		new NativeCodeGenerator().generate("src", "target/classes", "jni");
+		new NativeCodeGenerator().generate("src",
+			"bin" + File.pathSeparator +
+			"target/classes" + File.pathSeparator +
+			"../../gdx/target/classes" + File.pathSeparator +
+			"../../gdx/bin", "jni");
 		new AntScriptGenerator().generate(new BuildConfig("gdx-imgui"),
 			win32, win64, lin32, lin64, mac32, mac64, android, ios);
 	}

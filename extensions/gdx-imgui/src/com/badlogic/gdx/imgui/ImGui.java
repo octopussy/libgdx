@@ -1,12 +1,17 @@
 package com.badlogic.gdx.imgui;
 
+import com.badlogic.gdx.math.Vector2;
+
 /**
  * @author mcpussy
  */
+
+@SuppressWarnings("unused")
 public class ImGui {
 
 	/*JNI
 		#include <imgui.h>
+		#include <utils.h>
 	 */
 
 /*	public static native void getTexDataAsAlpha8(unsigned char**out_pixels, int*out_width, int*out_height, int*out_bytes_per_pixel=NULL); *//*
@@ -37,6 +42,8 @@ public class ImGui {
 	 	TexID = id;
 	 	}
 	*/
+
+	//TODO: styles
 
 	public static native void setKeyMap(int key, int value); /* ImGui::GetIO().KeyMap[key] = value; */
 
@@ -221,7 +228,6 @@ public class ImGui {
 	}
 
 	public static boolean begin(String name, ValueRef<Boolean> openRef, int flags) {
-		boolean collapsed = false;
 		if (openRef != null) {
 			BeginWindowJniResult result = beginJni(name, openRef.get(), flags);
 			openRef.set(result.isOpen);
@@ -231,10 +237,88 @@ public class ImGui {
 		}
 	}
 
-	public static native void end(); /*
-		ImGui::End();
+	public static native void end(); /* ImGui::End(); */
+
+	// begin a scrolling region. size==0.0f: use remaining window size, size<0.0f: use remaining window size minus abs(size). size>0.0f: fixed size. each axis can use a different mode, e.g. ImVec2(0,400).
+	public static boolean beginChild(String id, float width, float height) {
+		return beginChild(id, width, height, false, 0);
+	}
+
+	public static boolean beginChild(int id, float width, float height) {
+		return beginChild(id, width, height, 0);
+	}
+
+	public static native boolean beginChild(String id, float width, float height, boolean border, int extraWindowFlags); /*
+	 	return ImGui::BeginChild(id, ImVec2(width, height), border, extraWindowFlags);
 	*/
 
+	public static native boolean beginChild(int id, float width, float height, int extraWindowFlags); /*
+	 	return ImGui::BeginChild(id, ImVec2(width, height), false, extraWindowFlags);
+	*/
+
+	public static native void endChild(); /*
+		ImGui::EndChild();
+	*/
+
+	// current content boundaries (typically window boundaries including scrolling, or current column boundaries), in windows coordinates
+	public static native Vector2 getContentRegionMax(); /*
+		return toGdxVec2(env, ImGui::GetContentRegionMax());
+	*/
+
+	// == GetContentRegionMax() - GetCursorPos()
+	public static native Vector2 getContentRegionAvail(); /*
+		return toGdxVec2(env, ImGui::GetContentRegionAvail());
+	*/
+
+	public static native float getContentRegionAvailWidth(); /*
+		return ImGui::GetContentRegionAvailWidth();
+	*/
+
+	// content boundaries min (roughly (0,0)-Scroll), in window coordinates
+	public static native Vector2 getWindowContentRegionMin(); /*
+		return toGdxVec2(env, ImGui::GetWindowContentRegionMin());
+	*/
+
+	// content boundaries max (roughly (0,0)+Size-Scroll) where Size can be override with SetNextWindowContentSize(), in window coordinates
+	public static native Vector2 getWindowContentRegionMax(); /*
+		return toGdxVec2(env, ImGui::GetWindowContentRegionMax());
+	*/
+
+	public static native float getWindowContentRegionWidth(); /*
+	 	return ImGui::GetWindowContentRegionWidth();
+	*/
+
+	// TODO: this
+	// get rendering command-list if you want to append your own draw primitives
+	// ImDrawList*   GetWindowDrawList();
+
+	// get current window position in screen space (useful if you want to do your own drawing via the DrawList api)
+	public static native Vector2 getWindowPos(); /*
+		return toGdxVec2(env, ImGui::GetWindowPos());
+	*/
+
+	// get current window size
+	public static native Vector2 getWindowSize(); /*
+		return toGdxVec2(env, ImGui::GetWindowSize());
+	*/
+
+	public static native float getWindowWidth(); /*
+	 	return ImGui::GetWindowWidth();
+	*/
+
+	public static native float getWindowHeight(); /*
+	 	return ImGui::GetWindowHeight();
+	*/
+
+	public static native float isWindowCollapsed(); /*
+	 	return ImGui::IsWindowCollapsed();
+	*/
+
+	public static native float setWindowFontScale(float scale); /*
+	 	ImGui::SetWindowFontScale(scale);
+	*/
+
+	//////////////////////////////////////////////////////////////////////////////////////////
 	// window position/size
 	// set next window position. call before Begin()
 	public static void setNextWindowPos(float x, float y) {
@@ -371,11 +455,41 @@ public class ImGui {
 		ImGui::SetWindowFocus(name);
 	*/
 
-	// Window child
-	// begin a scrolling region. size==0.0f: use remaining window size, size<0.0f: use remaining window size minus abs(size). size>0.0f: fixed size. each axis can use a different mode, e.g. ImVec2(0,400).
-	//bool BeginChild(const char* str_id, const ImVec2& size = ImVec2(0,0), bool border = false, ImGuiWindowFlags extra_flags = 0);    // begin a scrolling region. size==0.0f: use remaining window size, size<0.0f: use remaining window size minus abs(size). size>0.0f: fixed size. each axis can use a different mode, e.g. ImVec2(0,400).
-	//bool BeginChild(ImGuiID id, const ImVec2& size = ImVec2(0,0), bool border = false, ImGuiWindowFlags extra_flags = 0);            // "
-	//void EndChild();
+	// get scrolling amount [0..GetScrollMaxX()]
+	public static native float getScrollX(); /* return ImGui::GetScrollX(); */
+
+	// get scrolling amount [0..GetScrollMaxY()]
+	public static native float getScrollY();/* return ImGui::GetScrollY(); */
+
+	// get maximum scrolling amount ~~ ContentSize.X - WindowSize.X
+	public static native float getScrollMaxX(); /* return ImGui::GetScrollMaxX(); */
+
+	// get maximum scrolling amount ~~ ContentSize.Y - WindowSize.Y
+	public static native float getScrollMaxY(); /* return ImGui::GetScrollMaxY(); */
+
+	// set scrolling amount [0..GetScrollMaxX()]
+	public static native void setScrollX(float scrollX); /* ImGui::SetScrollX(scrollX); */
+
+	// set scrolling amount [0..GetScrollMaxY()]
+	public static native void setScrollY(float scrollY); /* ImGui::SetScrollY(scrollY); */
+
+	// adjust scrolling amount to make current cursor position visible. center_y_ratio=0.0: top, 0.5: center, 1.0: bottom.
+	public static native void setScrollHere(float centerYRatio); /* ImGui::SetScrollHere(centerYRatio); */
+
+	// adjust scrolling amount to make given position valid. use GetCursorPos() or GetCursorStartPos()+offset to get valid positions.
+	public static native void setScrollFromPosY(float posY, float centerYRatio); /* ImGui::SetScrollFromPosY(posY, centerYRatio); */
+
+	// focus keyboard on the next widget. Use positive 'offset' to access sub components of a multiple component widget. Use negative 'offset' to access previous widgets.
+	public static void setKeyboardFocusHere() {
+		setKeyboardFocusHere(0);
+	}
+
+	public static native void setKeyboardFocusHere(int offset); /* ImGui::SetKeyboardFocusHere(offset); */
+
+	// TODO: this
+	// replace tree state storage with our own (if you want to manipulate it yourself, typically clear subsection of it)
+	// void          SetStateStorage(ImGuiStorage* tree);
+	// ImGuiStorage* GetStateStorage();
 
 
 	private static native boolean beginJni(String name, int flags); /*

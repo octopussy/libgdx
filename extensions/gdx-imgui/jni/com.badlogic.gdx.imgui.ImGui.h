@@ -249,6 +249,126 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_end
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    beginChild
+ * Signature: (Ljava/lang/String;FFZI)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_beginChild__Ljava_lang_String_2FFZI
+  (JNIEnv *, jclass, jstring, jfloat, jfloat, jboolean, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    beginChild
+ * Signature: (IFFI)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_badlogic_gdx_imgui_ImGui_beginChild__IFFI
+  (JNIEnv *, jclass, jint, jfloat, jfloat, jint);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    endChild
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_endChild
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getContentRegionMax
+ * Signature: ()Lcom/badlogic/gdx/math/Vector2;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getContentRegionMax
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getContentRegionAvail
+ * Signature: ()Lcom/badlogic/gdx/math/Vector2;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getContentRegionAvail
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getContentRegionAvailWidth
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getContentRegionAvailWidth
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowContentRegionMin
+ * Signature: ()Lcom/badlogic/gdx/math/Vector2;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowContentRegionMin
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowContentRegionMax
+ * Signature: ()Lcom/badlogic/gdx/math/Vector2;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowContentRegionMax
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowContentRegionWidth
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowContentRegionWidth
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowPos
+ * Signature: ()Lcom/badlogic/gdx/math/Vector2;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowPos
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowSize
+ * Signature: ()Lcom/badlogic/gdx/math/Vector2;
+ */
+JNIEXPORT jobject JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowSize
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowWidth
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowWidth
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getWindowHeight
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getWindowHeight
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    isWindowCollapsed
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_isWindowCollapsed
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setWindowFontScale
+ * Signature: (F)F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowFontScale
+  (JNIEnv *, jclass, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
  * Method:    setNextWindowPos
  * Signature: (FFI)V
  */
@@ -374,6 +494,78 @@ JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowCollapsed__Lja
  */
 JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setWindowFocus__Ljava_lang_String_2
   (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getScrollX
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getScrollX
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getScrollY
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getScrollY
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getScrollMaxX
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getScrollMaxX
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    getScrollMaxY
+ * Signature: ()F
+ */
+JNIEXPORT jfloat JNICALL Java_com_badlogic_gdx_imgui_ImGui_getScrollMaxY
+  (JNIEnv *, jclass);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setScrollX
+ * Signature: (F)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setScrollX
+  (JNIEnv *, jclass, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setScrollY
+ * Signature: (F)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setScrollY
+  (JNIEnv *, jclass, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setScrollHere
+ * Signature: (F)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setScrollHere
+  (JNIEnv *, jclass, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setScrollFromPosY
+ * Signature: (FF)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setScrollFromPosY
+  (JNIEnv *, jclass, jfloat, jfloat);
+
+/*
+ * Class:     com_badlogic_gdx_imgui_ImGui
+ * Method:    setKeyboardFocusHere
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_badlogic_gdx_imgui_ImGui_setKeyboardFocusHere
+  (JNIEnv *, jclass, jint);
 
 /*
  * Class:     com_badlogic_gdx_imgui_ImGui
